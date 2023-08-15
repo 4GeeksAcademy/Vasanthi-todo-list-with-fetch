@@ -1,34 +1,51 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ToDoFooter from './todoFooter'
 import ToDoBody from './todoBody'
 import ToDoHeader from './todoHeader'
 
-let listItems = [
-  {
-    id: 1,
-    name: "Make the bed"
-  },
-  {
-    id: 2,
-    name: "Wash my hands"
-  },
-  {
-    id: 3,
-    name: "Eat"
-  }
-]
-const ToDoList = () => {
 
-  const [listData, setList] = useState(listItems)
+const ToDoList = (props) => {
+
+  const [listData, setList] = useState([])
+  const fetchItems = () => {
+    fetch(`https://playground.4geeks.com/apis/fake/todos/user/${props.name}`).then(async (res) => {
+      const data = await res.json()
+      setList(data);
+    })
+  }
+  useEffect(async () => {
+    fetchItems()
+  }, [])
 
   const handleCallback = (filterItems) => {
     // Update the component's state
-    setList(filterItems)
+    fetch(`https://playground.4geeks.com/apis/fake/todos/user/${props.name}`, {
+      method: 'PUT',
+      body:
+        JSON.stringify(filterItems)
+      ,
+      headers: { 'Content-Type': 'application/json' },
+    }).then((res) => {
+      if (res.ok) {
+        setList(filterItems)
+      }
+    })
+
   }
 
   const handleSetList = (newInput) => {
-    setList((old) => {
-      return [...old, { id: listData.length + 1, name: newInput }]
+    fetch(`https://playground.4geeks.com/apis/fake/todos/user/${props.name}`, {
+      method: 'PUT',
+      body:
+        JSON.stringify([...listData, { id: listData.length + 1, label: newInput, done: false }])
+      ,
+      headers: { 'Content-Type': 'application/json' },
+    }).then((res) => {
+      if (res.ok) {
+        setList((old) => {
+          return [...old, { id: listData.length + 1, label: newInput, done: false }]
+        })
+      }
     })
   }
   return (

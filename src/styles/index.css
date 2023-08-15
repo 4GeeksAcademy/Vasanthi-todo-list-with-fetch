@@ -21,23 +21,14 @@
     width: 99%;
     padding: 1px;
 }
-@media screen and (min-width: 768px) {
-    .cards {
-        width: 49.5%;
-        padding: 1px;
-    }
-    .cards-bottom {
-        width: 49%;
-        padding: 1px;
-    }
-    .card {
-        width: 50%;
-    }
-}
+
 
 .list-group-item:hover .delete-icon {
    visibility: visible;
 }
 .delete-icon {
     visibility: hidden;
+}
+.cursor{
+    cursor: pointer;
 }

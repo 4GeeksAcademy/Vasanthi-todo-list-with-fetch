@@ -11,7 +11,6 @@ const ToDoHeader = (props) => {
 
   return (
     <>
-      <h1 className='fw-light'>todos</h1>
       <input
         type="text"
         className='form-control rounded-0 p-3 fw-light fs-4'

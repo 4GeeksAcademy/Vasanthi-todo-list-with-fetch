@@ -7,11 +7,11 @@ const ToDoBody = (props) => {
   }
 
 
-  const mapItems = props.lists.map((item) => {
+  const mapItems = props.lists.length > 0 && props.lists.map((item) => {
     return (
       <div className='' key={Math.random().toString()}>
         <li className="list-group-item d-flex p-3 fw-light" key={item.id}>
-          <p className='item-name w-100 text-start mb-0'>{item.name}</p>
+          <p className='item-name w-100 text-start mb-0'>{item.label}</p>
           <p className='delete-icon mb-0' key={item.name} onClick={() => deleteButton(item)}
           >x</p>
         </li>
